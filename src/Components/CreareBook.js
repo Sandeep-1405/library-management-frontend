@@ -9,13 +9,14 @@ const CreateBook = () => {
     const [publication, setPublication] = useState('');
     const [year, setYear] = useState('');
     const navigate = useNavigate();
+    const url = process.env.REACT_APP_BACKEND_URL;
 
     const onSubmit = async (e) => {
         e.preventDefault();
 
         try {
 
-            const res = await axios.post('http://localhost:3001/api/book', {name,author,publication,year});
+            const res = await axios.post(`${url}/api/book`, {name,author,publication,year});
             console.log(res);
             alert('Book Created')
             navigate('/books')

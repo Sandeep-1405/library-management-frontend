@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const Library = () => {
     const [loading, setLoading] = useState(false);
     const [libraryList, setLibraryList] = useState([]);
+    const url = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         fetchDetails();
@@ -13,7 +14,7 @@ const Library = () => {
     const fetchDetails = async () => {
         setLoading(true);
         try {
-            const res = await axios.get(`http://localhost:3001/api/library`);
+            const res = await axios.get(`${url}/api/library`);
             setLibraryList(res.data);
         } catch (error) {
             console.error(error);
@@ -25,7 +26,7 @@ const Library = () => {
     const OnClickDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this details?")) return;
         try {
-            await axios.delete(`http://localhost:3001/api/library/${id}`);
+            await axios.delete(`${url}/api/library/${id}`);
             fetchDetails(); 
         } catch (error) {
             console.error(error);

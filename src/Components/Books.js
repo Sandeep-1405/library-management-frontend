@@ -7,15 +7,16 @@ const Books = () => {
     const [booksList, setBooksList] = useState([]);
     const [error, setError] = useState('');
 
+    const url = process.env.REACT_APP_BACKEND_URL;
     useEffect(() => {
         fetchBooks();
     }, []);
 
     const fetchBooks = async () => {
         setLoading(true);
-        setError(''); // Reset any previous errors
+        setError(''); 
         try {
-            const res = await axios.get(`http://localhost:3001/api/book`);
+            const res = await axios.get(`${url}/api/book`);
             setBooksList(res.data.booksList);
         } catch (error) {
             setError('Failed to load books. Please try again later.');
@@ -29,7 +30,7 @@ const Books = () => {
         if (!window.confirm('Are you sure you want to delete this book?')) return;
         setLoading(true);
         try {
-            await axios.delete(`http://localhost:3001/api/book/${id}`);
+            await axios.delete(`${url}/api/book/${id}`);
             fetchBooks();
         } catch (error) {
             setError('Failed to delete book. Please try again later.');

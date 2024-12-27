@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const Students = () => {
     const [loading, setLoading] = useState(false);
     const [studentsList, setStudentsList] = useState([]);
+    const url = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         fetchStudents();
@@ -13,7 +14,7 @@ const Students = () => {
     const fetchStudents = async () => {
         setLoading(true);
         try {
-            const res = await axios.get(`http://localhost:3001/api/student`);
+            const res = await axios.get(`${url}/api/student`);
             setStudentsList(res.data.studentsList);
         } catch (error) {
             console.error(error);
@@ -25,7 +26,7 @@ const Students = () => {
     const OnClickDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this student?")) return;
         try {
-            await axios.delete(`http://localhost:3001/api/student/${id}`);
+            await axios.delete(`${url}/api/student/${id}`);
             fetchStudents();
         } catch (error) {
             console.error(error);
@@ -67,7 +68,7 @@ const Students = () => {
                                     <th scope="row">{index + 1}</th>
                                     <td>
                                         <img
-                                            src={`http://localhost:3001/uploads/${student.photo}`}
+                                            src={`${url}/uploads/${student.photo}`}
                                             alt={`${student.name}'s photo`}
                                             className="img-thumbnail"
                                             style={{
@@ -83,7 +84,7 @@ const Students = () => {
                                         {student.video ? (
                                             <video
                                                 controls
-                                                src={`http://localhost:3001/uploads/${student.video}`}
+                                                src={`${url}/uploads/${student.video}`}
                                                 className="img-thumbnail"
                                                 style={{ width: '120px', height: '150px' }}
                                             ></video>

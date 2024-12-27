@@ -11,6 +11,7 @@ const UpdateBook = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const { id } = useParams();
+    const url = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         fetchBookDetails();
@@ -18,7 +19,7 @@ const UpdateBook = () => {
 
     const fetchBookDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:3001/api/book/${id}`);
+            const res = await axios.get(`${url}/api/book/${id}`);
             const book = res.data;
             setName(book.name);
             setAuthor(book.author);
@@ -42,7 +43,7 @@ const UpdateBook = () => {
         setError('');
 
         try {
-            await axios.put(`http://localhost:3001/api/book/${id}`, { name, author, publication, year });
+            await axios.put(`${url}/api/book/${id}`, { name, author, publication, year });
             alert('Book updated successfully!');
             navigate('/books');
         } catch (error) {

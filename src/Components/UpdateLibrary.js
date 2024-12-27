@@ -10,6 +10,7 @@ const UpdateLibrary = () => {
     const [endDate, setEndDate] = useState('');
     const navigate = useNavigate();
     const { id } = useParams();
+    const url = process.env.REACT_APP_BACKEND_URL;
 
     const [studentsList, setStudentsList] = useState([]);
     const [booksList, setBooksList] = useState([]);
@@ -25,7 +26,7 @@ const UpdateLibrary = () => {
 
     const fetchStudents = async () => {
         try {
-            const res = await axios.get(`http://localhost:3001/api/student`);
+            const res = await axios.get(`${url}/api/student`);
             setStudentsList(res.data.studentsList);
         } catch (error) {
             console.error(error);
@@ -35,7 +36,7 @@ const UpdateLibrary = () => {
 
     const fetchBooks = async () => {
         try {
-            const res = await axios.get(`http://localhost:3001/api/book`);
+            const res = await axios.get(`${url}/api/book`);
             setBooksList(res.data.booksList);
         } catch (error) {
             console.error(error);
@@ -45,7 +46,7 @@ const UpdateLibrary = () => {
 
     const fetchDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:3001/api/library/${id}`);
+            const res = await axios.get(`${url}/api/library/${id}`);
             setStudentName(res.data.studentName);
             setBookName(res.data.bookName);
             setStartDate(new Date(res.data.startDate).toISOString().split('T')[0]);
@@ -60,7 +61,7 @@ const UpdateLibrary = () => {
         setLoading(true);
 
         try {
-            await axios.put(`http://localhost:3001/api/library/${id}`, { studentName, bookName, startDate, endDate });
+            await axios.put(`${url}/api/library/${id}`, { studentName, bookName, startDate, endDate });
             alert('Details updated successfully!');
             navigate('/library');
         } catch (error) {

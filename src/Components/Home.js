@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+    
     return (
         <div className="d-flex flex-column flex-md-row justify-content-center align-items-center py-5">
             <Link to='/library' className="btn btn-warning m-3">Go to Library Section</Link>

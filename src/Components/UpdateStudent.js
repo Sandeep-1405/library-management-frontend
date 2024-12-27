@@ -10,6 +10,7 @@ const UpdateStudent = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
+    const url = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         fetchStudentDetails();
@@ -25,7 +26,7 @@ const UpdateStudent = () => {
 
     const fetchStudentDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:3001/api/student/${id}`);
+            const res = await axios.get(`${url}/api/student/${id}`);
             const student = res.data;
             //console.log(student)
             setName(student.name);
@@ -46,7 +47,7 @@ const UpdateStudent = () => {
         if (video) formData.append('video', video);
 
         try {
-            await axios.put(`http://localhost:3001/api/student/${id}`, formData, {
+            await axios.put(`${url}/api/student/${id}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' },
             });
             alert('Student updated successfully!');

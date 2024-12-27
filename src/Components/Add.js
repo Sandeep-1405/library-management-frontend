@@ -11,6 +11,7 @@ const Add = () => {
 
     const [studentsList, setStudentsList] = useState([]);
     const [booksList, setBooksList] = useState([]);
+    const url = process.env.REACT_APP_BACKEND_URL
 
     useEffect(() => {
         fetchStudents();
@@ -19,7 +20,7 @@ const Add = () => {
 
     const fetchStudents = async () => {
         try {
-            const res = await axios.get(`http://localhost:3001/api/student`);
+            const res = await axios.get(`${url}/api/student`);
             setStudentsList(res.data.studentsList);
         } catch (error) {
             console.error(error);
@@ -29,7 +30,7 @@ const Add = () => {
 
     const fetchBooks = async () => {
         try {
-            const res = await axios.get(`http://localhost:3001/api/book`);
+            const res = await axios.get(`${url}/api/book`);
             setBooksList(res.data.booksList);
         } catch (error) {
             console.error(error);
@@ -41,7 +42,7 @@ const Add = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.post('http://localhost:3001/api/library', { studentName, bookName, startDate, endDate });
+            const res = await axios.post(`${url}/api/library`, { studentName, bookName, startDate, endDate });
             console.log(res);
             alert('Details Saved');
             navigate('/library');

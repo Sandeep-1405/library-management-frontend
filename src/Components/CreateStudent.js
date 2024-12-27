@@ -9,6 +9,7 @@ const CreateStudent = () => {
     const [photo, setPhoto] = useState(null);
     const [video, setVideo] = useState(null);
     const navigate = useNavigate();
+    const url = process.env.REACT_APP_BACKEND_URL;
 
     const onChangePhoto = (e) => {
         setPhoto(e.target.files[0]);
@@ -28,7 +29,7 @@ const CreateStudent = () => {
             formData.append('photo', photo);
             formData.append('video', video);
 
-            const res = await axios.post('http://localhost:3001/api/student', formData, {
+            const res = await axios.post(`${url}/api/student`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
